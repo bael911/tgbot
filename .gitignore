@@ -1,1 +1,8 @@
 venv/
+.idea
+__pycache__
+.env
+.gitignore
+bot.sqlite3
+bot1.sqlite3
+
