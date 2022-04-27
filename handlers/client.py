@@ -1,9 +1,8 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram import types, Dispatcher
 from config import bot, dp, ADMIN
-
-# @dp.message_handler(commands=['mem'])
 from database import bot_db
+from parser import anime
 
 
 async def mem(message: types.Message):
@@ -73,6 +72,14 @@ async def ban(message: types.Message):
 async def show_random_user(message: types.Message):
     await bot_db.sql_command_random(message)
 
+
+async def parser_anime(message: types.Message):
+    data = anime.paser()
+    for item in data:
+        await bot.send_message(message.chat.id,item)
+
+
+
 def register_hendlers_client(dp: Dispatcher):
     dp.register_message_handler(mem, commands=["mem"])
     dp.register_message_handler(hello, commands=["start"])
@@ -80,3 +87,4 @@ def register_hendlers_client(dp: Dispatcher):
     dp.register_message_handler(problem_1, commands=["problem"])
     dp.register_message_handler(ban, commands=["ban"], commands_prefix="!/")
     dp.register_message_handler(show_random_user, commands=["random"])
+    dp.register_message_handler(parser_anime(), commands=["anime"])
